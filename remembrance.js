@@ -1,8 +1,22 @@
-var game = function() {
+var game = function(duration) {
 	var gameObject = {
 		score: 0,
+		duration: duration,
 		initialize: function() {
-			return true;
+			this.gameLoop();
+		},
+		gameLoop: function() {
+			var choice = 
+			if(chec)
+		},
+		getKeypress: function() {
+			
+		},
+		checkResponse: function(choice) {
+			
+		},
+		terminate: function() {
+			
 		}
 	};
 	gameObject.initialize();
