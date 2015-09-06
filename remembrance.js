@@ -58,7 +58,7 @@ var Game = function(canvas, mainColor, colors, duration, interval) {
 		},
 		_drawTimer: function() {
 			this.duration -= this.interval/1000;
-			document.getElementById("time").innerHTML = Math.round(this.duration);
+			document.getElementById("time").innerHTML = Math.ceil(this.duration);
 		},
 		_keyDownHandler: function(e) {
 			var choice;
@@ -83,7 +83,9 @@ var Game = function(canvas, mainColor, colors, duration, interval) {
 				this.key.left.pressed = true;
 				choice = this.key.left.color;
 			}
-			this._checkResponse(choice);
+			if(e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40) {
+				this._checkResponse(choice);
+			}
 		},
 		_keyUpHandler: function(e) {
 			if(e.keyCode === 32) {
@@ -105,13 +107,16 @@ var Game = function(canvas, mainColor, colors, duration, interval) {
 		_checkResponse: function(choice) {
 			console.log(this.mainColor);
 			if (choice === this.mainColor) {
-				this.score++;
+				this.score ++;
 
 				var newColor = this.colors[Math.floor(Math.random()*this.colors.length)];
 				while (newColor === this.mainColor) {
 					newColor = this.colors[Math.floor(Math.random()*this.colors.length)];
 				}
 				this.mainColor = newColor;
+			}
+			else {
+				this.score --;
 			}
 			document.getElementById("score").innerHTML = this.score;
 		},
