@@ -5,4 +5,4 @@ var canvas = document.getElementById("game-canvas");
 canvas.width = vpWidth;
 canvas.height = vpHeight;
 
-var game = Game(canvas, "#333333", ['red', 'green', 'blue', 'yellow'], 20, 10);
+var game = Game(canvas, "#333333", ['#D1585A', '#E3B168', '#84B1BA', '#343A45'], 20, 10);

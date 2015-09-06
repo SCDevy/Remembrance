@@ -45,15 +45,19 @@ var Game = function(canvas, mainColor, colors, duration, interval) {
 
 			// TEMP: until I can set up "press SPACE to start"
 			this.mainColor = this.colors[Math.floor(Math.random()*this.colors.length)];
-			
+
 			return true;
 		},
 		_draw: function(ctx) {
 			ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 			this._drawBackground();
+			this._drawScore();
 		},
 		_drawBackground: function() {
 			this.canvas.style.background = this.mainColor;
+		},
+		_drawScore: function() {
+
 		},
 		_keyDownHandler: function(e) {
 			var choice;
@@ -102,7 +106,7 @@ var Game = function(canvas, mainColor, colors, duration, interval) {
 				this.mainColor = this.colors[Math.floor(Math.random()*this.colors.length)];
 				this.score++;
 			}
-			console.log("SCORE: " + this.score);
+			document.getElementById("score").innerHTML = this.score;
 		},
 		terminate: function() {
 
