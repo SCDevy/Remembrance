@@ -36,10 +36,12 @@ html, body {
     margin-top: 20px;
     font-size: 20px;
     background: none;
+    border: none;
 }
 .legend>.item.start>span {
-    padding: 4px 16px;
+    padding: 4px 20px;
     border: 1px solid white;
+    border-radius: 2px;
 }
 
 .timeboard {

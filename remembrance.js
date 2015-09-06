@@ -36,15 +36,19 @@ var Game = function(canvas, mainColor, colors, duration, interval) {
 			// assign colors to keys
 			this.key.space.color = null;
 			this.key.up.color = this.colors[0];
+			document.getElementById("up").style.background = this.colors[0];
 			this.key.right.color = this.colors[1];
+			document.getElementById("right").style.background = this.colors[1];
 			this.key.down.color = this.colors[2];
+			document.getElementById("down").style.background = this.colors[2];
 			this.key.left.color = this.colors[3];
+			document.getElementById("left").style.background = this.colors[3];
 
 			document.addEventListener("keydown", this._keyDownHandler.bind(this), false);
 			document.addEventListener("keyup", this._keyUpHandler.bind(this), false);
 
 			// TEMP: until I can set up "press SPACE to start"
-			this.mainColor = this.colors[Math.floor(Math.random()*this.colors.length)];
+			// this.mainColor = this.colors[Math.floor(Math.random()*this.colors.length)];
 
 			return true;
 		},
