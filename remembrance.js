@@ -14,12 +14,17 @@ var Game = function(canvas, mainColor, colors, duration, interval) {
 		},
 		score: 0,
 		_initialize: function() {
+			if (this.colors.length !== 4) {
+				console.log("Game object only takes a color array of length 4.");
+				return false;
+			}
+
 			var ctx = this.canvas.getContext("2d");
 			setInterval(this._draw.bind(this, ctx), this.interval);
 
 			// shuffle colors
 			var currentIndex = this.colors.length, tempValue, randomIndex;
-			while (0 !== currentIndex) {
+			while(0 !== currentIndex) {
 				randomIndex = Math.floor(Math.random() * currentIndex);
 				currentIndex -= 1;
 
@@ -38,29 +43,42 @@ var Game = function(canvas, mainColor, colors, duration, interval) {
 			document.addEventListener("keydown", this._keyDownHandler.bind(this), false);
 			document.addEventListener("keyup", this._keyUpHandler.bind(this), false);
 
+			// TEMP: until I can set up "press SPACE to start"
+			this.mainColor = this.colors[Math.floor(Math.random()*this.colors.length)];
+			
 			return true;
 		},
 		_draw: function(ctx) {
 			ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-			if (this.key.left.pressed === true) this.canvas.style.background = this.colors[Math.floor(Math.random()*this.colors.length)];
-			else this.canvas.style.background = this.mainColor;
+			this._drawBackground();
+		},
+		_drawBackground: function() {
+			this.canvas.style.background = this.mainColor;
 		},
 		_keyDownHandler: function(e) {
+			var choice;
+
 			if(e.keyCode === 32) {
 				this.key.space.pressed = true;
+				choice = this.key.space.color;
 			}
 			else if(e.keyCode === 38) {
 				this.key.up.pressed = true;
+				choice = this.key.up.color;
 			}
 			else if(e.keyCode === 39) {
 				this.key.right.pressed = true;
+				choice = this.key.right.color;
 			}
 			else if(e.keyCode === 40) {
 				this.key.down.pressed = true;
+				choice = this.key.down.color;
 			}
 			else if(e.keyCode === 37) {
 				this.key.left.pressed = true;
+				choice = this.key.left.color;
 			}
+			this._checkResponse(choice);
 		},
 		_keyUpHandler: function(e) {
 			if(e.keyCode === 32) {
@@ -79,8 +97,12 @@ var Game = function(canvas, mainColor, colors, duration, interval) {
 				this.key.left.pressed = false;
 			}
 		},
-		checkResponse: function(choice) {
-
+		_checkResponse: function(choice) {
+			if (choice === this.mainColor) {
+				this.mainColor = this.colors[Math.floor(Math.random()*this.colors.length)];
+				this.score++;
+			}
+			console.log("SCORE: " + this.score);
 		},
 		terminate: function() {
 
