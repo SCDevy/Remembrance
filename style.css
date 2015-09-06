@@ -25,23 +25,28 @@ html, body {
 }
 
 .legend>.item {
-    width: 320px;
-    margin-top: 10px; padding: 20px 0;
-    display: block;
+    width: 46%; height: 14%;
     text-align: center;
     background: black;
-    border-radius: 5px;
+    /*border: 2px solid white;*/
+    /*border-radius: 4px;*/
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.legend>.item.start {
-    margin-top: 20px;
+.legend>.start {
+    height: auto;
+    margin-top: 45px;
     font-size: 20px;
+    font-weight: 200;
     background: none;
     border: none;
 }
-.legend>.item.start>span {
-    padding: 4px 20px;
+.legend>.start>span {
+    padding: 4px 25px;
     border: 1px solid white;
-    border-radius: 2px;
+    /*border-radius: 2px;*/
 }
 
 .timeboard {
