@@ -51,13 +51,14 @@ var Game = function(canvas, mainColor, colors, duration, interval) {
 		_draw: function(ctx) {
 			ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 			this._drawBackground();
-			this._drawScore();
+			this._drawTimer();
 		},
 		_drawBackground: function() {
 			this.canvas.style.background = this.mainColor;
 		},
-		_drawScore: function() {
-
+		_drawTimer: function() {
+			this.duration -= this.interval/1000;
+			document.getElementById("time").innerHTML = Math.round(this.duration);
 		},
 		_keyDownHandler: function(e) {
 			var choice;
@@ -102,9 +103,15 @@ var Game = function(canvas, mainColor, colors, duration, interval) {
 			}
 		},
 		_checkResponse: function(choice) {
+			console.log(this.mainColor);
 			if (choice === this.mainColor) {
-				this.mainColor = this.colors[Math.floor(Math.random()*this.colors.length)];
 				this.score++;
+
+				var newColor = this.colors[Math.floor(Math.random()*this.colors.length)];
+				while (newColor === this.mainColor) {
+					newColor = this.colors[Math.floor(Math.random()*this.colors.length)];
+				}
+				this.mainColor = newColor;
 			}
 			document.getElementById("score").innerHTML = this.score;
 		},
