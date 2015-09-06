@@ -1,28 +1,83 @@
-var Game = function(canvas, duration, interval) {
+var Game = function(canvas, mainColor, colors, duration, interval) {
 	var Game = {
 		canvas: canvas,
+		mainColor: mainColor,
+		colors: colors,
 		duration: duration,
 		interval: interval,
+		key: {
+			space: {pressed: false, color: undefined},
+			up: {pressed: false, color: undefined},
+			right: {pressed: false, color: undefined},
+			down: {pressed: false, color: undefined},
+			left: {pressed: false, color: undefined}
+		},
 		score: 0,
-		x: 0,
-		y: 0,
-		initialize: function() {
+		_initialize: function() {
 			var ctx = this.canvas.getContext("2d");
-			setInterval(this.draw.bind(this, ctx), this.interval);
+			setInterval(this._draw.bind(this, ctx), this.interval);
+
+			// shuffle colors
+			var currentIndex = this.colors.length, tempValue, randomIndex;
+			while (0 !== currentIndex) {
+				randomIndex = Math.floor(Math.random() * currentIndex);
+				currentIndex -= 1;
+
+				tempValue = this.colors[currentIndex];
+				this.colors[currentIndex] = this.colors[randomIndex];
+				this.colors[randomIndex] = tempValue;
+			}
+
+			// assign colors to keys
+			this.key.space.color = null;
+			this.key.up.color = this.colors[0];
+			this.key.right.color = this.colors[1];
+			this.key.down.color = this.colors[2];
+			this.key.left.color = this.colors[3];
+
+			document.addEventListener("keydown", this._keyDownHandler.bind(this), false);
+			document.addEventListener("keyup", this._keyUpHandler.bind(this), false);
+
+			return true;
 		},
-		draw: function(ctx) {
+		_draw: function(ctx) {
 			ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-			ctx.beginPath();
-			ctx.arc(this.x, this.y, 10, 0, Math.PI*2);
-			ctx.fillStyle = "#0095DD";
-			ctx.fill();
-			ctx.closePath();
-			this.x += 1;
-			this.y += 1;
+			if (this.key.left.pressed === true) this.canvas.style.background = this.colors[Math.floor(Math.random()*this.colors.length)];
+			else this.canvas.style.background = this.mainColor;
 		},
-		getKeypress: function() {
-
+		_keyDownHandler: function(e) {
+			if(e.keyCode === 32) {
+				this.key.space.pressed = true;
+			}
+			else if(e.keyCode === 38) {
+				this.key.up.pressed = true;
+			}
+			else if(e.keyCode === 39) {
+				this.key.right.pressed = true;
+			}
+			else if(e.keyCode === 40) {
+				this.key.down.pressed = true;
+			}
+			else if(e.keyCode === 37) {
+				this.key.left.pressed = true;
+			}
+		},
+		_keyUpHandler: function(e) {
+			if(e.keyCode === 32) {
+				this.key.space.pressed = false;
+			}
+			else if(e.keyCode === 38) {
+				this.key.up.pressed = false;
+			}
+			else if(e.keyCode === 39) {
+				this.key.right.pressed = false;
+			}
+			else if(e.keyCode === 40) {
+				this.key.down.pressed = false;
+			}
+			else if(e.keyCode === 37) {
+				this.key.left.pressed = false;
+			}
 		},
 		checkResponse: function(choice) {
 
@@ -31,7 +86,7 @@ var Game = function(canvas, duration, interval) {
 
 		}
 	};
-	Game.initialize();
+	Game._initialize();
 	return Game;
 };
 
