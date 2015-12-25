@@ -25,26 +25,26 @@ var Game = function(canvas, mainColor, colors, keys, duration, interval) {
 			setInterval(this._draw.bind(this, ctx), this.interval);
 
 			// shuffle colors
-			var currentIndex = this.colors.length, tempValue, randomIndex;
-			while(0 !== currentIndex) {
-				randomIndex = Math.floor(Math.random() * currentIndex);
-				currentIndex -= 1;
-
-				tempValue = this.colors[currentIndex];
-				this.colors[currentIndex] = this.colors[randomIndex];
-				this.colors[randomIndex] = tempValue;
-			}
+			// var currentIndex = this.colors.length, tempValue, randomIndex;
+			// while(0 !== currentIndex) {
+			// 	randomIndex = Math.floor(Math.random() * currentIndex);
+			// 	currentIndex -= 1;
+			//
+			// 	tempValue = this.colors[currentIndex];
+			// 	this.colors[currentIndex] = this.colors[randomIndex];
+			// 	this.colors[randomIndex] = tempValue;
+			// }
 
 			// assign colors to keys
 			this.key.space.color = null;
 			this.key.up.color = this.colors[0];
-			document.getElementById("up").style.background = this.colors[0];
+			document.getElementById("up").style.backgroundImage = this.colors[0];
 			this.key.right.color = this.colors[1];
-			document.getElementById("right").style.background = this.colors[1];
+			document.getElementById("right").style.backgroundImage = this.colors[1];
 			this.key.down.color = this.colors[2];
-			document.getElementById("down").style.background = this.colors[2];
+			document.getElementById("down").style.backgroundImage = this.colors[2];
 			this.key.left.color = this.colors[3];
-			document.getElementById("left").style.background = this.colors[3];
+			document.getElementById("left").style.backgroundImage = this.colors[3];
 
 			document.addEventListener("keydown", this._keyDownHandler.bind(this), false);
 			document.addEventListener("keyup", this._keyUpHandler.bind(this), false);
@@ -57,7 +57,7 @@ var Game = function(canvas, mainColor, colors, keys, duration, interval) {
 			this._drawTimer();
 		},
 		_drawBackground: function() {
-			this.canvas.style.background = this.mainColor;
+			this.canvas.style.backgroundImage = this.mainColor;
 		},
 		_drawTimer: function() {
 			if (this.sessionActive === true) {
@@ -94,7 +94,7 @@ var Game = function(canvas, mainColor, colors, keys, duration, interval) {
 					this.key.left.pressed = true;
 					choice = this.key.left.color;
 				}
-				if(e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40) {
+				if(e.keyCode === this.keys[0] || e.keyCode === this.keys[1] || e.keyCode === this.keys[2] || e.keyCode === this.keys[3]) {
 					this._checkResponse(choice);
 				}
 			}
@@ -103,16 +103,16 @@ var Game = function(canvas, mainColor, colors, keys, duration, interval) {
 			if(e.keyCode === 32) {
 				this.key.space.pressed = false;
 			}
-			else if(e.keyCode === 38) {
+			else if(e.keyCode === this.keys[0]) {
 				this.key.up.pressed = false;
 			}
-			else if(e.keyCode === 39) {
+			else if(e.keyCode === this.keys[1]) {
 				this.key.right.pressed = false;
 			}
-			else if(e.keyCode === 40) {
+			else if(e.keyCode === this.keys[2]) {
 				this.key.down.pressed = false;
 			}
-			else if(e.keyCode === 37) {
+			else if(e.keyCode === this.keys[3]) {
 				this.key.left.pressed = false;
 			}
 		},

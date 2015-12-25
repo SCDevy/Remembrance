@@ -5,4 +5,4 @@ var canvas = document.getElementById("game-canvas");
 canvas.width = vpWidth;
 canvas.height = vpHeight;
 
-var game = Game(canvas, "#222222", ['#D1585A', '#E3B168', '#84B1BA', '#343A45'], [38, 39, 40, 37], 20, 10);
+var game = Game(canvas, "url('img/portraits/family.jpg')", ["url('img/portraits/william.jpg')", "url('img/portraits/jean.jpg')", "url('img/portraits/michael.jpg')", "url('img/portraits/stephen.jpg')"], [87, 74, 77, 83], 20, 10);
