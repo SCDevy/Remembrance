@@ -1,8 +1,9 @@
-var Game = function(canvas, mainColor, colors, duration, interval) {
+var Game = function(canvas, mainColor, colors, keys, duration, interval) {
 	var Game = {
 		canvas: canvas,
 		mainColor: mainColor,
 		colors: colors,
+		keys: keys,
 		duration: duration,
 		interval: interval,
 		key: {
@@ -77,19 +78,19 @@ var Game = function(canvas, mainColor, colors, duration, interval) {
 				}
 			}
 			else if(this.sessionActive === true) {
-				if(e.keyCode === 38) {
+				if(e.keyCode === this.keys[0]) {
 					this.key.up.pressed = true;
 					choice = this.key.up.color;
 				}
-				else if(e.keyCode === 39) {
+				else if(e.keyCode === this.keys[1]) {
 					this.key.right.pressed = true;
 					choice = this.key.right.color;
 				}
-				else if(e.keyCode === 40) {
+				else if(e.keyCode === this.keys[2]) {
 					this.key.down.pressed = true;
 					choice = this.key.down.color;
 				}
-				else if(e.keyCode === 37) {
+				else if(e.keyCode === this.keys[3]) {
 					this.key.left.pressed = true;
 					choice = this.key.left.color;
 				}
